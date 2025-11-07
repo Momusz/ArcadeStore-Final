@@ -53,7 +53,7 @@ public class ArcadePerfil extends JFrame {
 
     private void initializeUI(int idUsuariologado) {
         setTitle("Perfil");
-        setSize(1280, 720);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(lojaframe);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
