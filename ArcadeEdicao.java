@@ -47,14 +47,14 @@ public class ArcadeEdicao extends JFrame {
     private boolean cvvValid = true;
 
     private void botaoHab() {
-        boolean preenchido = !txtNome.getText().trim().isEmpty() && 
-                           !txtNewUser.getText().trim().isEmpty() && 
-                           !txtEmail.getText().trim().isEmpty() && 
-                           txtNewPass.getPassword().length > 0 && 
+        boolean preenchido = !txtNome.getText().trim().isEmpty() &&
+                           !txtNewUser.getText().trim().isEmpty() &&
+                           !txtEmail.getText().trim().isEmpty() &&
+                           txtNewPass.getPassword().length > 0 &&
                            txtConfirmPass.getPassword().length > 0 &&
                            !txtNumeroCartao.getText().trim().isEmpty() &&
                            !txtCVV.getText().trim().isEmpty();
-        
+
         boolean valido = nomeValid && nickValid && emailValid && senhaValid && cSenhaValid && cartaoValid && cvvValid;
         btnSave.setEnabled(preenchido && valido);
     }
@@ -106,6 +106,28 @@ public class ArcadeEdicao extends JFrame {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
+        try (Connection connect = ConexaoR.getConnection()) {
+            PreparedStatement pstmt = connect.prepareStatement("SELECT * FROM usuario WHERE id_usuario = ?;");
+            pstmt.setInt(1, idUsuariologado);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    nome = rs.getString("Nome");
+                    nick = rs.getString("Nickname");
+                    email = rs.getString("Email");
+                    senha = rs.getString("Senha");
+                    numeroCartao = rs.getString("Numero_Cartao");
+                    cvv = rs.getString("CVV");
+                }
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         JLabel lblNome = new JLabel("Nome Completo:");
         lblNome.setFont(pixelLabelFont);
         lblNome.setForeground(new Color(153, 204, 255));
@@ -115,6 +137,7 @@ public class ArcadeEdicao extends JFrame {
         panel.add(lblNome, gbc);
 
         txtNome = new JTextField();
+        txtNome.setText(nome);
         txtNome.setFont(customFont);
         txtNome.setPreferredSize(new Dimension(400, 35));
         gbc.gridy = 1;
@@ -162,6 +185,7 @@ public class ArcadeEdicao extends JFrame {
         panel.add(lblUser, gbc);
 
         txtNewUser = new JTextField();
+        txtNewUser.setText(nick);
         txtNewUser.setFont(customFont);
         txtNewUser.setPreferredSize(new Dimension(400, 35));
         gbc.gridy = 3;
@@ -234,6 +258,7 @@ public class ArcadeEdicao extends JFrame {
         panel.add(lblEmail, gbc);
 
         txtEmail = new JTextField();
+        txtEmail.setText(email);
         txtEmail.setFont(customFont);
         txtEmail.setPreferredSize(new Dimension(400, 35));
         gbc.gridy = 5;
@@ -290,6 +315,7 @@ public class ArcadeEdicao extends JFrame {
         panel.add(lblPass, gbc);
 
         txtNewPass = new JPasswordField();
+        txtNewPass.setText(senha);
         txtNewPass.setFont(customFont);
         txtNewPass.setPreferredSize(new Dimension(400, 35));
         gbc.gridy = 7;
@@ -342,6 +368,7 @@ public class ArcadeEdicao extends JFrame {
         panel.add(lblConfirmPass, gbc);
 
         txtConfirmPass = new JPasswordField();
+        txtConfirmPass.setText(senha);
         txtConfirmPass.setFont(customFont);
         txtConfirmPass.setPreferredSize(new Dimension(400, 35));
         gbc.gridy = 9;
@@ -395,6 +422,7 @@ public class ArcadeEdicao extends JFrame {
         panel.add(lblNumeroCartao, gbc);
 
         txtNumeroCartao = new JTextField();
+        txtNumeroCartao.setText(numeroCartao);
         txtNumeroCartao.setFont(customFont);
         txtNumeroCartao.setPreferredSize(new Dimension(400, 35));
         gbc.gridy = 11;
@@ -445,6 +473,7 @@ public class ArcadeEdicao extends JFrame {
         panel.add(lblCVV, gbc);
 
         txtCVV = new JTextField();
+        txtCVV.setText(cvv);
         txtCVV.setFont(customFont);
         txtCVV.setPreferredSize(new Dimension(400, 35));
         gbc.gridy = 13;
@@ -485,7 +514,7 @@ public class ArcadeEdicao extends JFrame {
                 botaoHab();
             }
         });
-        
+
         btnSave = new RoundedButton("Finalizar Edição", 15);
         btnSave.setFont(buttonFont);
         btnSave.setBackground(new Color(0, 102, 204));
@@ -501,6 +530,8 @@ public class ArcadeEdicao extends JFrame {
             this.dispose();
             ArcadePerfil.setVisible(true);
         });
+
+        botaoHab();
 
         btnSave.addActionListener(a -> {
             if (nomeValid && nickValid && emailValid && senhaValid && cSenhaValid && cartaoValid && cvvValid) {
@@ -544,11 +575,21 @@ public class ArcadeEdicao extends JFrame {
         buttonPanel.add(Box.createRigidArea(new Dimension(20, 0)));
         buttonPanel.add(btnBack);
 
+        JPanel obsPanel = new JPanel();
+        obsPanel.setOpaque(false);
+        obsPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        JLabel obsLbl = new JLabel("*Preencha todos os campos");
+        obsLbl.setFont(msgFont);
+        obsLbl.setForeground(new Color(255, 102, 102));
+        obsPanel.add(obsLbl);
+
         gbc.gridx = 0;
         gbc.gridy = 14;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
         panel.add(buttonPanel, gbc);
+        gbc.gridy = 15;
+        panel.add(obsPanel, gbc);
 
         backgroundPanel.add(panel, new GridBagConstraints());
         setContentPane(backgroundPanel);

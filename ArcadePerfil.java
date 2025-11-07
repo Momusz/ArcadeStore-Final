@@ -31,7 +31,7 @@ public class ArcadePerfil extends JFrame {
         String sql = "SELECT nome, email, nickname, numero_cartao FROM usuario WHERE id_usuario = ?";
 
         try (Connection conn = DriverManager.getConnection(URL, USUARIO, SENHA);
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, idUsuariologado); 
 
