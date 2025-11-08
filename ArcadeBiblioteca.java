@@ -139,7 +139,7 @@ public class ArcadeBiblioteca extends JFrame {
                 card.add(lblImagem);
                 card.add(Box.createRigidArea(new Dimension(0, 10)));
                 card.add(lblNome);
-                card.add(lblPreco);
+                //card.add(lblPreco);
                 card.add(Box.createRigidArea(new Dimension(0, 10)));
                 card.add(btnComprado);
                 container.add(card);
