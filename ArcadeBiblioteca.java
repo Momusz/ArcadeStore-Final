@@ -9,6 +9,9 @@ import java.io.BufferedInputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.event.ActionEvent;        
+import java.awt.event.ActionListener;  
+import java.io.IOException;  
 
 public class ArcadeBiblioteca extends JFrame {
     public int idUsuariologado;
@@ -128,21 +131,57 @@ public class ArcadeBiblioteca extends JFrame {
                 lblImagem.setAlignmentX(Component.CENTER_ALIGNMENT);
 
                 
-                RoundedButton btnComprado = new RoundedButton("Comprado", 20);
+                RoundedButton btnComprado = new RoundedButton("Jogar", 20);
                 btnComprado.setFont(buttonFont);
                 btnComprado.setBackground(new Color(0, 102, 204));
                 btnComprado.setForeground(Color.WHITE);
                 btnComprado.setAlignmentX(Component.CENTER_ALIGNMENT);
                 btnComprado.setBorderPainted(false);
-                
-                card.add(Box.createRigidArea(new Dimension(0, 10)));
-                card.add(lblImagem);
-                card.add(Box.createRigidArea(new Dimension(0, 10)));
-                card.add(lblNome);
-                //card.add(lblPreco);
-                card.add(Box.createRigidArea(new Dimension(0, 10)));
-                card.add(btnComprado);
-                container.add(card);
+
+
+                if (jogo.nome.equals("Cabeça Adventure"))
+                {
+                    btnComprado.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        String pastaDoJogo = "C:\\Games\\Jogo";//colocar o endereço do jogo aqui
+        String nomeDoExe = "Sapo.exe"; // colocar o nome do executavel aqui
+
+        try {
+            File exe = new File(pastaDoJogo, nomeDoExe);
+
+            ProcessBuilder pb = new ProcessBuilder(exe.getAbsolutePath());
+            pb.directory(new File(pastaDoJogo));
+
+            pb.start();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                "Não foi possível iniciar o jogo.\nVerifique o caminho:\n" + pastaDoJogo + "\\" + nomeDoExe,
+                "Erro ao Abrir",
+                JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                "Ocorreu um erro: " + ex.getMessage(),
+                "Erro",
+                JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    });
+
+}
+
+            card.add(Box.createRigidArea(new Dimension(0, 10)));
+            card.add(lblImagem);
+            card.add(Box.createRigidArea(new Dimension(0, 10)));
+            card.add(lblNome);
+            //card.add(lblPreco);
+            card.add(Box.createRigidArea(new Dimension(0, 10)));
+            card.add(btnComprado);
+            container.add(card);
                 
             }
 
@@ -150,6 +189,8 @@ public class ArcadeBiblioteca extends JFrame {
             JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage());
             ex.printStackTrace();
         }
+        
+        
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setOpaque(false);
@@ -177,7 +218,7 @@ public class ArcadeBiblioteca extends JFrame {
     private List<Jogo> buscarJogosDoBanco() throws SQLException {
         List<Jogo> lista = new ArrayList<>();
 
-        String URL = "jdbc:mysql://localhost:3306/Projeto";
+        String URL = "jdbc:mysql://localhost:3306/projeto";
         String USUARIO = "root";
         String SENHA = "admin";
 
@@ -225,6 +266,7 @@ public class ArcadeBiblioteca extends JFrame {
             }
         }
     }
+
 
     
     class NeonGradientLabel extends JLabel {
