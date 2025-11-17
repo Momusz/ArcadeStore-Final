@@ -1,0 +1,120 @@
+Tabelas
+------------------------------------
+INSIRA UMA TABELA POR VEZ OBRIGADO <3
+De cima pra baixo, já está na ordem!
+------------------------------------
+
+
+create database Projeto;
+
+-- DESENVOLVEDOR:
+use Projeto;
+create table desenvolvedor
+(
+ID_Dev int auto_increment primary key,
+Nome varchar(100)
+);
+
+-- JOGOS:
+use Projeto;
+create table jogos
+(
+ID_Jogos int auto_increment primary key,
+Nome varchar(100),
+Valor decimal(10,2),
+Categoria varchar(100),
+Imagens varchar(100),
+ID_Dev int,
+foreign key (ID_Dev) references desenvolvedor(ID_Dev)
+);
+
+-- PLATAFORMA:
+use Projeto;
+create table plataforma
+(
+ID_Plataforma int auto_increment primary key,
+Nome varchar(50)
+);
+
+
+-- RELACIONAMENTO PLATAFORMA COM JOGOS:
+use Projeto;
+create table plataforma_jogos
+(
+ID_Plataforma int,
+ID_Jogos int,
+foreign key (ID_Jogos) references jogos(ID_Jogos),
+foreign key (ID_Plataforma) references plataforma(ID_Plataforma)
+);
+
+-- USUARIO
+
+use Projeto;
+create table usuario (
+    ID_Usuario int auto_increment primary key,
+    Perfil varchar(100),
+    Nome varchar(100),
+    Imagem_Perfil varchar(100),
+    Email varchar(100),
+    Senha varchar(20),
+    Nickname varchar(20),
+    Numero_Cartao varchar(16),
+    CVV char(3)
+);
+
+
+-- BIBLIOTECA:
+use Projeto;
+create table biblioteca
+(
+ID_Biblioteca int,
+ID_Jogos int,
+ID_Usuario int,
+foreign key (ID_Jogos) references jogos(ID_Jogos),
+foreign key (ID_Usuario) references usuario(ID_Usuario)
+
+);
+
+-- ARCADESTORE
+use Projeto;
+create table arcadestore
+(
+CNPJ varchar(18) primary key,
+Nome varchar(11),
+ID_Usuario int,
+foreign key (ID_Usuario) references usuario(ID_Usuario)
+);
+
+use projeto;
+create table arcadestore_jogos
+(
+CNPJ varchar(18),
+ID_Jogos int,
+foreign key (ID_Jogos) references jogos(ID_Jogos),
+foreign key (CNPJ) references arcadestore(CNPJ)
+);
+
+
+-- PAGAMENTOS
+use projeto;
+create table pagamento
+(
+ID_Pagamento int auto_increment primary key,
+formas varchar(100)
+);
+
+
+
+-- PEDIDOS
+use projeto;
+create table pedido
+(
+ID_Pedido int auto_increment primary key,
+Data_Compra date,
+ID_Jogos int,
+foreign key (ID_Jogos) references jogos(ID_Jogos),
+ID_Usuario int,
+foreign key (ID_Usuario) references usuario(ID_Usuario),
+ID_Pagamento int,
+foreign key (ID_Pagamento) references pagamento(ID_Pagamento)
+);

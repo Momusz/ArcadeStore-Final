@@ -1,0 +1,160 @@
+Linhas
+----------------------------------------------
+INSIRA NA ORDEM DE CIMA PRA BAIXO, OBRIGADO <3
+----------------------------------------------
+
+
+-- Inserindo linhas para o desenvolvedor:
+use projeto;
+insert into desenvolvedor
+(Nome)
+values
+('Ubisoft Bordeaux'); 
+
+use projeto;
+insert into desenvolvedor
+(Nome)
+values
+('Rockstar North'); 
+
+use projeto;
+insert into desenvolvedor
+(Nome)
+values
+('Mojang Studios'); 
+
+use projeto;
+insert into desenvolvedor
+(Nome)
+values
+('Santa Monica Studio (PlayStation Studios)'); 
+
+use projeto;
+insert into desenvolvedor
+(Nome)
+values
+('Avalanche Software'); 
+
+use projeto;
+insert into desenvolvedor
+(Nome)
+values
+('Rockstar San Diego'); 
+
+use projeto;
+insert into desenvolvedor
+(Nome)
+values
+('Naughty Dog'); 
+
+use projeto;
+insert into desenvolvedor
+(Nome)
+values
+('EA Sports (EA Vancouver / EA Romania)'); 
+
+use projeto;
+insert into desenvolvedor
+(Nome)
+values
+('CD Projekt Red'); 
+
+use projeto;
+insert into desenvolvedor
+(Nome)
+values
+('FromSoftware'); 
+
+use projeto;
+insert into desenvolvedor
+(Nome)
+values
+('Pocket Trap (Brasil)'); 
+
+use projeto;
+insert into desenvolvedor
+(Nome)
+values
+('Long Hat House (Brasil)'); 
+
+use projeto;
+insert into desenvolvedor
+(Nome)
+values
+('Double Dash Studios (Brasil)'); 
+
+use projeto;
+insert into desenvolvedor
+(Nome)
+values
+('Desenvolvedor independente (Natã)'); 
+
+use projeto;
+select * from desenvolvedor;
+
+
+-- INSERINDO LINHAS JOGOS:
+use projeto;
+insert into jogos
+(Nome ,Valor ,Categoria ,ID_Dev)
+values
+("Assassin's Creed Mirage", 299.99, 'Ação / Aventura / Stealth', 1),
+('GTA 5 (Grand Theft Auto V)',149.90, 'Ação / Mundo Aberto', 2),
+('Minecraft',69.99, 'Sandbox / Sobrevivência', 3),
+('God of War: Ragnarök',299.90, 'Ação / Aventura', 4),
+('Hogwarts Legacy',299.90, 'RPG de Ação / Mundo Aberto', 5),
+('Red Dead Redemption',199.99, 'Ação / Faroeste / Mundo Aberto', 6),
+('The Last of Us: Part II',249.90, 'Ação / Aventura / Survival Horror', 7),
+('FIFA 25',349.90, 'Esporte / Futebol', 8),
+('Cyberpunk 2077',149.90, 'RPG de Ação / Mundo Aberto', 9),
+('Elden Ring',279.99, 'RPG de Ação / Mundo Aberto / Soulslike', 10),
+('Dodgeball Academia',69.99, 'RPG Esportivo / Indie', 11),
+('Dandara',46.99, 'Metroidvania / Indie', 12),
+('The Last NightMary – A Lenda do Cabeça de Cuia',13.79, 'Terror / Indie (Visual Novel)', 13),
+('Cabeça Adventure',299.90, 'Indie / Aventura', 14);
+
+-- Inserts das imagens dos jogos
+use projeto; update jogos set imagens="Gta5.jpg" where id_jogos=2;
+use projeto; update jogos set imagens="Minecraft.jpg" where id_jogos=3;
+use projeto; update jogos set imagens="Godwar.jpg" where id_jogos=4;
+use projeto; update jogos set imagens="Hogwartslegacy.jpg" where id_jogos=5;
+use projeto; update jogos set imagens="Reddead2.jpg" where id_jogos=6;
+use projeto; update jogos set imagens="Thelastofuspart2.jpg" where id_jogos=7;
+use projeto; update jogos set imagens="Gta5.jpg" where id_jogos=8;
+use projeto; update jogos set imagens="Eldenring.jpg" where id_jogos=10;
+use projeto; update jogos set imagens="Assassinscreedmirage.jpg" where id_jogos=1;
+use projeto; update jogos set imagens="Cyberpunk2077.jpg" where id_jogos=9;
+use projeto; update jogos set imagens="Ea25.jpg" where id_jogos=8;
+use projeto; update jogos set imagens="dandara.jpg" where id_jogos=12;
+use projeto; update jogos set imagens="dodgeballacademia.png" where id_jogos=11;
+use projeto; update jogos set imagens="thelastnigthmary.png" where id_jogos=13;
+use projeto; update jogos set imagens="sapojose.JPG" where id_jogos=14;
+use projeto; update jogos set nome="Sapo Jose" where id_jogos=14;
+
+use projeto;
+select * from jogos
+where Categoria like '%Aventura%'
+
+use projeto;
+insert into pagamento
+(formas)
+values 
+('1 pix');
+
+use projeto;
+insert into pagamento
+(formas)
+values 
+('2 Boleto');
+
+use projeto;
+insert into pagamento
+(formas)
+values 
+('3 Cartao_Debito');
+
+use projeto;
+insert into pagamento
+(formas)
+values 
+('4 Cartao_Credito');
