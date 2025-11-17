@@ -133,7 +133,7 @@ public class ArcadeBiblioteca extends JFrame {
                 
                 RoundedButton btnComprado = new RoundedButton("Jogar", 20);
                 btnComprado.setFont(buttonFont);
-                btnComprado.setBackground(new Color(0, 102, 204));
+                btnComprado.setBackground(new Color(24, 245, 98));
                 btnComprado.setForeground(Color.WHITE);
                 btnComprado.setAlignmentX(Component.CENTER_ALIGNMENT);
                 btnComprado.setBorderPainted(false);
@@ -145,7 +145,7 @@ public class ArcadeBiblioteca extends JFrame {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        String pastaDoJogo = "C:\\Games\\Jogo";//colocar o endereço do jogo aqui
+        String pastaDoJogo = "C:/Users/monic/OneDrive/Documentos/Jogo/Jogo";//colocar o endereço do jogo aqui
         String nomeDoExe = "Sapo.exe"; // colocar o nome do executavel aqui
 
         try {
